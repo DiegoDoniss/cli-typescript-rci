@@ -1,20 +1,50 @@
 import click
 import os
 
+
 @click.group()
 def cli():
     pass
 
+
 @click.command()
 @click.argument('file_name')
-def new(file_name):
-    
-    files = [{"route":f'src/controllers/controller-{file_name}.ts', "content":f"""import {{ Request, Response }} from 'express'
+@click.option('--crud', is_flag=True)
+def new(file_name, crud):
+    crudController = ""
+    crudRouter = ""
+    if crud:
+        crudController = """
+    async getAll(){}
+    async getById(){}
+    async create(){}
+    async editById(){}
+    async deleteById(){}
+"""
+        crudRouter = """
+router.get('/',controller.getAll)
+router.get('/:id',controller.getById)
+router.post('/',controller.create)
+router.put('/:id',controller.editById)
+router.delete('/',controller.deleteById)
+"""
+
+    files = [
+        {
+            "route": f'src/controllers/controller-{file_name}.ts',
+            "content": f"""import {{ Request, Response }} from 'express'
 import {{ getPool }} from '../database'
-export class {file_name.title()} {{}}"""},{"route":f'src/interfaces/interface-{file_name}.ts', "content":f"export interface i{file_name.title()} {{}}"},{"route":f'src/routes/{file_name}.ts',"content":f"""import {{ Router }} from 'express';
+export class {file_name.title()} {{{crudController}}}"""},
+        {
+            "route": f'src/interfaces/interface-{file_name}.ts',
+            "content": f"export interface i{file_name.title()} {{}}"},
+        {
+            "route": f'src/routes/{file_name}.ts',
+            "content": f"""import {{ Router }} from 'express';
 import {{ {file_name.title()} }} from '../controllers/controller-{file_name}'
 const controller = new {file_name.title()}()
 const router = Router()
+{crudRouter}
 export default router"""}]
 
     for a in files:
@@ -23,8 +53,9 @@ export default router"""}]
                 os.makedirs(os.path.dirname(a['route']))
             except os.error as e:
                 print(e)
-        f=open(a['route'], 'w')
+        f = open(a['route'], 'w')
         f.write(a['content'])
+
 
 cli.add_command(new)
 
