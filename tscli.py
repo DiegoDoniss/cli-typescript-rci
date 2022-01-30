@@ -15,11 +15,21 @@ def new(file_name, crud):
     crudRouter = ""
     if crud:
         crudController = """
-    async getAll(){}
-    async getById(){}
-    async create(){}
-    async editById(){}
-    async deleteById(){}
+    async getAll(req: Request, res: Response){
+        const pool = await getPool()
+    }
+    async getById(req: Request, res: Response){
+        const pool = await getPool()
+    }
+    async create(req: Request, res: Response){
+        const pool = await getPool()
+    }
+    async editById(req: Request, res: Response){
+        const pool = await getPool()
+    }
+    async deleteById(req: Request, res: Response){
+        const pool = await getPool()
+    }
 """
         crudRouter = """
 router.get('/',controller.getAll)
