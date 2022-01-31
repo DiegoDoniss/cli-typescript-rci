@@ -20,8 +20,8 @@ def new(file_name, crud):
         try {
             const result = await pool.query('')
             res.send(result.recordset)
-        } catch (error) {
-            res.status(404).send({message:'error en la consulta'})
+        } catch (ex:Error) {
+            res.status(404).send({message:'error en la consulta', error:ex.message})
         }
     }
     async getById(req: Request, res: Response){
@@ -30,8 +30,8 @@ def new(file_name, crud):
         try {
             const request = pool.request()
             request.input('id',Int,id)
-        } catch (error) {
-            res.status(404).send({message:'error en la consulta'})
+        } catch (ex:Error) {
+            res.status(404).send({message:'error en la consulta', error:ex.message})
         }
     }
     async create(req: Request, res: Response){
@@ -40,8 +40,8 @@ def new(file_name, crud):
         try {
             const request = pool.request()
             request.input()
-        } catch (error) {
-            res.status(404).send({message:'error en la consulta'})
+        } catch (ex:Error) {
+            res.status(404).send({message:'error en la consulta', error:ex.message})
         }
     }
     async editById(req: Request, res: Response){
@@ -50,8 +50,8 @@ def new(file_name, crud):
         try {
             const request = pool.request()
             request.input('id',Int,id)
-        } catch (error) {
-            res.status(404).send({message:'error en la consulta'})
+        } catch (ex:Error) {
+            res.status(404).send({message:'error en la consulta', error:ex.message})
         }
     }
     async deleteById(req: Request, res: Response){
@@ -60,8 +60,8 @@ def new(file_name, crud):
         try {
             const request = pool.request()
             request.input('id',Int,id)
-        } catch (error) {
-            res.status(404).send({message:'error en la consulta'})
+        } catch (ex:Error) {
+            res.status(404).send({message:'error en la consulta', error:ex.message})
         }
     }
 """
