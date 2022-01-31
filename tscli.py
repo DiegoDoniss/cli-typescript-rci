@@ -20,7 +20,7 @@ def new(file_name, crud):
         try {
             const result = await pool.query('')
             res.send(result.recordset)
-        } catch (ex:Error) {
+        } catch (ex:any) {
             res.status(404).send({message:'error en la consulta', error:ex.message})
         }
     }
@@ -30,7 +30,7 @@ def new(file_name, crud):
         try {
             const request = pool.request()
             request.input('id',Int,id)
-        } catch (ex:Error) {
+        } catch (ex:any) {
             res.status(404).send({message:'error en la consulta', error:ex.message})
         }
     }
@@ -40,7 +40,7 @@ def new(file_name, crud):
         try {
             const request = pool.request()
             request.input()
-        } catch (ex:Error) {
+        } catch (ex:any) {
             res.status(404).send({message:'error en la consulta', error:ex.message})
         }
     }
@@ -50,7 +50,7 @@ def new(file_name, crud):
         try {
             const request = pool.request()
             request.input('id',Int,id)
-        } catch (ex:Error) {
+        } catch (ex:any) {
             res.status(404).send({message:'error en la consulta', error:ex.message})
         }
     }
@@ -60,7 +60,7 @@ def new(file_name, crud):
         try {
             const request = pool.request()
             request.input('id',Int,id)
-        } catch (ex:Error) {
+        } catch (ex:any) {
             res.status(404).send({message:'error en la consulta', error:ex.message})
         }
     }
